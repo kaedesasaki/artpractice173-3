@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 50px;
+        }
+
+        .item { 
+            width: 1200px;
+            height: 1200px;
+            margin-top: 50px;
+            margin-left: 50px;
+            margin: 30px;
+
+        }
+
+        body {
+            background-color: #a8e6a6;
+            background-size: cover;
+            text-align: center;
+            margin: 50px;
+        }
+        
+        .button {
+            width: 256px;
+            height: 256px;
+            margin: 50px;
+        }
+
+
+    </style>
+
+    <script src="libs/howler.js"></script>
+
+    <title>My List</title>
+</head>
+
+<body>
+
+    <div class="container"></div>
+    <div class="leve"></div>
+
+</body>
+
+<script>
+    const numImgs = 6;
+    const imgPaths = Array.from({ length: numImgs });
+    imgPaths.forEach((e,i) => { imgPaths[i]=`img/${i}.png`;});
+    const makeImg = () => document.createElement('img');
+    const imgs = Array.from({ length: numImgs }, ()=>makeImg());
+    console.log(imgs);
+    
+    const playSound = (sound) => { sound.play(); }
+    const numSounds = 6;
+    const sounds = Array.from({ length: numSounds}, (e, i) => new Howl({ src: `sounds/${i}.mp3`, html5: false, volume: 0.9, loop: false }));
+    const getRandomColor = () => `#${Math.floor(Math.random()*16777215).toString(16)}`; 
+    const colors = Array.from({ length: numSounds }, () => getRandomColor() );
+    console.log(colors);
+    
+    const images = [];
+    images[0]="url(img/1.png)";
+    images[1]="url(img/2.png)";
+    images[2]="url(img/3.png)";
+    images[3]="url(img/4.png)";
+    images[4]="url(img/5.png)";
+    images[5]="url(img/6.png)";
+    
+    
+    
+    const container = document.querySelector('.container');
+    const numButtons = numSounds;
+    const makeDiv = (index) => {
+        div = document.createElement('div');
+        div.className='button';
+        div.style.backgroundImage=images[index];
+        return div
+        };
+                
+    
+    const buttons = Array.from({ length: numButtons}, (element, index) => makeDiv(index));
+    console.log(buttons);
+    buttons.forEach(button => container.appendChild(button));
+    
+    buttons.forEach( (button, index) => {
+        button.addEventListener('click', () => {
+            playSound(sounds[index])
+        })
+    })
+    
+    </script>
+    </html>
